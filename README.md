@@ -76,7 +76,9 @@ Modelo de Tarea
   "id": 1,
   "name": "Aprender",
   "description": "Aprender Spring Boot",
-  "completed": false
+  "completed": false,
+  "createdAt": "2025-04-28T13:20:52.495058",
+  "updatedAt": "2025-04-28T13:22:57.210828"
 }
 ```
 
