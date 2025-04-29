@@ -92,3 +92,31 @@ Modelo de Tarea
 | PUT    | `/api/tasks/{id}`          | Actualizar una tarea existente               | `{ "name": "Texto", description": "Texto", "completed": true }`    | Tarea actualizada (DTO)|
 | PATCH  | `/api/tasks/{id}/toggle`   | Alternar el estado de completada/no completada | —                                               | Tarea actualizada (DTO)|
 | DELETE | `/api/tasks/{id}`          | Eliminar una tarea por su ID                 | —                                                  | —                      |
+
+## 📄 Paginación, Ordenamiento y Filtrado
+
+El endpoint principal `/api/tasks` soporta **paginación**, **ordenamiento** y **filtrado por estado** desde el backend.
+
+- **Paginación:** Usa los parámetros `page` (número de página, empezando en 0) y `size` (cantidad de elementos por página).
+- **Ordenamiento:** Usa el parámetro `sort`, por ejemplo: `sort=createdAt,desc` o `sort=name,asc`.
+- **Filtrado:** Puedes filtrar por estado usando el parámetro `completed` (`true` o `false`).
+
+**Ejemplo de request:**
+
+
+```http
+GET /api/tasks?page=0&size=10&sort=createdAt,desc&completed=true
+```
+**Ejemplo de respuesta:**
+```json
+{
+  "content": [ ...tareas... ],
+  "totalPages": 1,
+  "totalElements": 3,
+  "number": 0,
+  "size": 10,
+  ...
+}
+```
+
+
