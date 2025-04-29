@@ -1,13 +1,14 @@
 package com.aditumcr.taskmanager.service;
 
-import com.aditumcr.taskmanager.dto.TaskDTO;
-import com.aditumcr.taskmanager.model.Task;
-import com.aditumcr.taskmanager.repository.TaskRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
-import java.util.stream.Collectors;
+import com.aditumcr.taskmanager.dto.TaskDTO;
+import com.aditumcr.taskmanager.model.Task;
+import com.aditumcr.taskmanager.repository.TaskRepository;
 
 @Service
 public class TaskService {
@@ -15,11 +16,12 @@ public class TaskService {
     @Autowired
     private TaskRepository taskRepository;
 
-    public List<TaskDTO> getAllTasks() {
-        return taskRepository.findAll()
-                .stream()
-                .map(this::convertToDTO)
-                .collect(Collectors.toList());
+    public Page<TaskDTO> getAllTasks(Pageable pageable, Boolean completed) {
+        if (completed != null) {
+            return taskRepository.findByCompleted(completed, pageable).map(this::convertToDTO);
+        } else {
+            return taskRepository.findAll(pageable).map(this::convertToDTO);
+        }
     }
 
     public TaskDTO getTaskById(Long id) {

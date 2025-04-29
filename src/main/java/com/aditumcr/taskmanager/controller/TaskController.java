@@ -6,10 +6,13 @@ import com.aditumcr.taskmanager.service.TaskService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -21,9 +24,11 @@ public class TaskController {
     private TaskService taskService;
 
     @GetMapping
-    @Operation(summary = "Obtener todas las tareas", description = "Devuelve una lista de todas las tareas")
-    public List<TaskDTO> getAllTasks() {
-        return taskService.getAllTasks();
+    public Page<TaskDTO> getAllTasks(
+        @PageableDefault(size = 10, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable,
+        @RequestParam(required = false) Boolean completed
+    ) {
+        return taskService.getAllTasks(pageable, completed);
     }
     
     @GetMapping("/{id}")
