@@ -25,8 +25,8 @@ Sistema de gestión de tareas desarrollado como parte de la prueba técnica para
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/tu-usuario/task-manager.git
-cd task-manager
+git clone https://github.com/joseyx/TaskManegement-Java
+cd TaskManegement-Java
 ```
 
 ### 2. Configurar base de datos
